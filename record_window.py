@@ -1,7 +1,7 @@
 import tkinter as tk
 from gender_instrument import GenderInstrument
-from ctypes import windll
 from tkinter.filedialog import asksaveasfile
+from ctypes import windll
 windll.shcore.SetProcessDpiAwareness(1)
 import time
 
@@ -25,6 +25,7 @@ class RecordWindow(tk.Frame):
         row_number += 1
         gender_instrument = GenderInstrument(self)
         gender_instrument.grid(column=0,row=row_number)
+        row_number += 1
         top_root = self.winfo_toplevel()
         # top_root.bind(f'<KeyRelease>', self.__release_button)
         top_root.bind(f'<space>', self.__press_button, add=True)
@@ -34,7 +35,7 @@ class RecordWindow(tk.Frame):
             # has not configured if pressed in screen
             top_root.bind(f'{number}', self.__press_button, add=True)
         save_button = tk.Button(self, text='Save recording', command=self.__save_notes)
-        save_button.grid(column=0,row=3)
+        save_button.grid(column=0,row=row_number)
     def __press_button(self, key_press_event):
         pressed_key: str = key_press_event.char
         # print(pressed_key)

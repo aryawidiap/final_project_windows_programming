@@ -9,6 +9,7 @@ class GenderInstrument():
         pg.init()
         pg.mixer.set_num_channels(256)
         # // tempo about 176 bpm
+        # add button to choose the file
  
         
     def __play_sound(self, key):

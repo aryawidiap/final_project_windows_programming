@@ -14,7 +14,7 @@ class GenderInstrument(tk.Frame):
         top_root.bind(f'<space>', self.__press_button)
         for index, number in enumerate(note_ranges):
             # has not configured if pressed in screen
-            gender_blade = GenderBlade(self, text=number, height=15+10-index, width=15)
+            gender_blade = GenderBlade(self, note=number, text=number, height=15+10-index, width=15,)
             top_root.bind(f'{number}', self.__press_button)
             self.gender_blades[number] = gender_blade
         # self.gender_blades[number] = gender_blade
@@ -42,17 +42,13 @@ class GenderInstrument(tk.Frame):
             pressed_button.config(relief='sunken')
             pressed_button.button_pressed()
             # TODO: remove operations if sounds already exists
-            self.__play_sound(pressed_key_numeric) 
+            pressed_button.play_sound() 
     def __release_button(self, key_press_event):
         pressed_key: str = key_press_event.char
         if pressed_key.isnumeric():
             pressed_button = self.gender_blades[int(pressed_key)]
             pressed_button.config(relief='raised')
             pressed_button.button_released()
-    def __play_sound(self, key):
-        sound = pg.mixer.Sound(f"sounds/note_v_0-9_-0{key}.mp3")
-        sound.play()
-        return
     
 # root = tk.Tk()
 # instrument = GenderInstrument(root)

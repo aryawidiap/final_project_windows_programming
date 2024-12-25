@@ -8,7 +8,7 @@ class PlayBackWindow(tk.Frame):
     def __init__(self, root):
         # self.note_ranges = [7,8,9,-1,-1,8,7,-1,-1,-1,8,8,7,8,9,-1,-1,-1]
         # self.note_ranges = [7,8,9,7,8,9,7,8,9,7,8,9,0,9,8,-1,9,-1,8,-1,-1,9,-1,0,0,6,7,8,7,8,-1,-1,-1]
-        self.note_ranges = [7, 8, 9, -1, -1, -1, -1, 8, 7, -1, -1, -1, -1, -1, -1, -1, 8, 8, 7, 8, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, 8, 7, 8, 9, -1, -1]
+        self.recorded_notes = []
         
         pg.init()
         pg.mixer.set_num_channels(256)
@@ -19,7 +19,7 @@ class PlayBackWindow(tk.Frame):
 
         self.grid(column=0,row=0,sticky=tk.NSEW)
         row_number = 0
-        title_label = tk.Label(self,text='Playback')
+        title_label = tk.Label(self,text='Play')
         title_label.grid(column=0,row=row_number)
 
         row_number += 1
@@ -59,8 +59,8 @@ class PlayBackWindow(tk.Frame):
 
     def __play_sound(self, key):
         print(key)
-        if key != -1:
-            self.gender_instrument.simulate_button_press(key)
+        if key != 'rest':
+            self.gender_instrument.simulate_button_press(int(key))
             ##sound = pg.mixer.Sound(f"sounds/note_v_0-9_-0{key}.mp3")
             ##sound.play()
         # return
@@ -70,14 +70,14 @@ class PlayBackWindow(tk.Frame):
         index = 0
         while self.is_playing:
             if not self.is_paused:
-                self.__play_sound(self.note_ranges[index])
+                self.__play_sound(self.recorded_notes[index])
                 index += 1
-                if index >= len(self.note_ranges):
+                if index >= len(self.recorded_notes):
                     self.is_playing = False
                 sleep(0.5)
         self.is_paused = True
         self.is_playing = False
-        self.play_button.config(text="Play Back")
+        self.play_button.config(text="Play")
     
     def open_file(self):
         self.stop_threading()
@@ -86,7 +86,7 @@ class PlayBackWindow(tk.Frame):
         if file is not None:
             content = file.read()
             print(content)
-            self.note_ranges = list(map(int, content.split(',')))
+            self.recorded_notes = list(content.split(','))
 
 root = tk.Tk()
 playback_window = PlayBackWindow(root)

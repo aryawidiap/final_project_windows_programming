@@ -20,7 +20,7 @@ class GenderBlade(tk.Button):
         # pressed_button.config(relief='sunken')
         # pressed_button.button_pressed()
         # TODO: remove operations if sounds already exists
-        self.play_sound(self.note)
+        self.play_sound()
     def play_sound(self):
         sound = pg.mixer.Sound(f"sounds/note_v_0-9_-0{self.note}.mp3")
         sound.play()

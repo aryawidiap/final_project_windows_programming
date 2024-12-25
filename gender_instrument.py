@@ -1,6 +1,7 @@
 import tkinter as tk
 from gender_blade import GenderBlade
 import pygame as pg
+from time import sleep
 
 class GenderInstrument(tk.Frame):
     def __init__(self, root):
@@ -49,6 +50,13 @@ class GenderInstrument(tk.Frame):
             pressed_button = self.gender_blades[int(pressed_key)]
             pressed_button.config(relief='raised')
             pressed_button.button_released()
+    
+    def simulate_button_press(self, note):
+        key = tk.Event()
+        key.char = str(note)
+        self.__press_button(key)
+        sleep(0.3)
+        self.__release_button(key)
     
 # root = tk.Tk()
 # instrument = GenderInstrument(root)

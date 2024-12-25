@@ -1,3 +1,4 @@
+from functools import partial
 import tkinter as tk
 import time
 import pygame as pg
@@ -21,6 +22,11 @@ class GenderBlade(tk.Button):
         # pressed_button.button_pressed()
         # TODO: remove operations if sounds already exists
         self.play_sound()
+    def bind_command(self, func, **kwargs):
+        self.configure(command=partial(self.__bind_command, func, **kwargs))
+    def __bind_command(self, func, **kwargs):
+        func(**kwargs)
+        self.__press_button()
     def play_sound(self):
         sound = pg.mixer.Sound(f"sounds/note_v_0-9_-0{self.note}.mp3")
         sound.play()

@@ -9,7 +9,9 @@ class PlayBackWindow(tk.Frame):
         # self.note_ranges = [7,8,9,-1,-1,8,7,-1,-1,-1,8,8,7,8,9,-1,-1,-1]
         # self.note_ranges = [7,8,9,7,8,9,7,8,9,7,8,9,0,9,8,-1,9,-1,8,-1,-1,9,-1,0,0,6,7,8,7,8,-1,-1,-1]
         self.recorded_notes = []
-        
+        self.bpm = 120
+        self.interval = float(60 / float(self.bpm))
+
         pg.init()
         pg.mixer.set_num_channels(256)
         # // tempo about 176 bpm
@@ -31,6 +33,9 @@ class PlayBackWindow(tk.Frame):
         self.play_button.grid(column=1, row=0)
         stop_button = tk.Button(control_frame, text="Stop", command=self.stop_threading, height=5, width=10)
         stop_button.grid(column=2, row=0)
+        self.bpm_slider = tk.Scale(control_frame, from_=60, to=240, orient=tk.HORIZONTAL, label="BPM", length=200, command=(self.set_bpm))
+        self.bpm_slider.set(self.bpm)
+        self.bpm_slider.grid(column=3, row=0)
         self.is_playing = False
         self.is_paused = True
 
@@ -40,6 +45,11 @@ class PlayBackWindow(tk.Frame):
         row_number += 1
         self.gender_instrument = GenderInstrument(self)
         self.gender_instrument.grid(column=0,row=row_number)
+
+    def set_bpm(self, new_bpm):
+        self.bpm = new_bpm
+        self.interval = float(60 / float(self.bpm))
+        print(self.bpm)
 
     def start_threading(self):
         if self.is_paused:
@@ -61,9 +71,6 @@ class PlayBackWindow(tk.Frame):
         print(key)
         if key != 'rest':
             self.gender_instrument.simulate_button_press(int(key))
-            ##sound = pg.mixer.Sound(f"sounds/note_v_0-9_-0{key}.mp3")
-            ##sound.play()
-        # return
 
     def playback(self):
         self.is_playing = True
@@ -74,7 +81,7 @@ class PlayBackWindow(tk.Frame):
                 index += 1
                 if index >= len(self.recorded_notes):
                     self.is_playing = False
-                sleep(0.5)
+                sleep(float(self.interval))
         self.is_paused = True
         self.is_playing = False
         self.play_button.config(text="Play")

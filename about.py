@@ -73,7 +73,7 @@ def create_about_window():
     # Add a picture
     try:
         # Load the image from the "misc" directory
-        image_path = "misc/Gender.jpg"
+        image_path = "misc/gender_resized.jpg"
         image = Image.open(image_path)
         image = image.resize((200, 200), Image.Resampling.LANCZOS)
         photo = ImageTk.PhotoImage(image)

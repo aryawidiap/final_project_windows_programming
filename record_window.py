@@ -5,6 +5,7 @@ import tkinter as tk
 from gender_instrument import GenderInstrument
 from tkinter.filedialog import asksaveasfile
 from tkinter import messagebox
+from menubar import *
 import platform
 
 if platform.system() == 'Windows':
@@ -166,6 +167,9 @@ class RecordWindow(tk.Frame):
         print(key)
         if key != 'rest':
             self.gender_instrument.simulate_button_press(int(key))
+
 root = tk.Tk()
-play_window = RecordWindow(root)
+create_menu(root, "Record")
+
+record_window = RecordWindow(root)
 root.mainloop()

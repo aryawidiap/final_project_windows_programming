@@ -3,8 +3,9 @@ import pygame as pg
 from gender_instrument import GenderInstrument
 from time import sleep
 import threading
-from tkinter.filedialog import askopenfile, askopenfiles, asksaveasfile
+from tkinter.filedialog import askopenfile
 import platform
+from menubar import *
 
 if platform.system() == 'Windows':
     from ctypes import windll
@@ -101,6 +102,7 @@ class PlayBackWindow(tk.Frame):
 
 root = tk.Tk()
 playback_window = PlayBackWindow(root)
+create_menu(root, "Playback")
 # # playback_thread = threading.Thread(target=playback_window.playback)
 # # playback_thread.start()
 

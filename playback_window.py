@@ -4,10 +4,19 @@ from gender_instrument import GenderInstrument
 from time import sleep
 import threading
 from tkinter.filedialog import askopenfile, askopenfiles, asksaveasfile
+import platform
+
+if platform.system() == 'Windows':
+    from ctypes import windll
+    windll.shcore.SetProcessDpiAwareness(1)
+    from common_windows import CommonWindows
+    common = CommonWindows()
+else:
+    from common import Common
+    common = Common()
+
 class PlayBackWindow(tk.Frame):
     def __init__(self, root):
-        # self.note_ranges = [7,8,9,-1,-1,8,7,-1,-1,-1,8,8,7,8,9,-1,-1,-1]
-        # self.note_ranges = [7,8,9,7,8,9,7,8,9,7,8,9,0,9,8,-1,9,-1,8,-1,-1,9,-1,0,0,6,7,8,7,8,-1,-1,-1]
         self.recorded_notes = []
         self.bpm = 120
         self.interval = float(60 / float(self.bpm))
@@ -15,33 +24,28 @@ class PlayBackWindow(tk.Frame):
         pg.init()
         pg.mixer.set_num_channels(256)
         # // tempo about 176 bpm
-        # add button to choose the file
-
         super().__init__(root)
 
         self.grid(column=0,row=0,sticky=tk.NSEW)
         row_number = 0
-        title_label = tk.Label(self,text='Play')
-        title_label.grid(column=0,row=row_number)
+        title_label = tk.Label(self,text='Playback',font=common.TITLE_FONT_STYLE)
+        title_label.grid(column=0,row=row_number, pady=(0,15))
 
         row_number += 1
         control_frame = tk.Frame(self)
-        control_frame.grid(column=0, row=row_number, columnspan=3, )
-        upload_button = tk.Button(control_frame, text="Upload File", command=self.open_file, height=5, width=10)
-        upload_button.grid(column=0, row=0)
-        self.play_button = tk.Button(control_frame, text="Play", command=self.start_threading, height=5, width=10)
-        self.play_button.grid(column=1, row=0)
-        stop_button = tk.Button(control_frame, text="Stop", command=self.stop_threading, height=5, width=10)
-        stop_button.grid(column=2, row=0)
+        control_frame.grid(column=0, row=row_number, columnspan=3, pady=(0,15))
+        upload_button = tk.Button(control_frame, text="Open File", command=self.open_file, font=common.UTILITY_BUTTON_STYLE)
+        upload_button.grid(column=0, row=0, padx=(common.UTILITY_BUTTON_GAP,0))
+        self.play_button = tk.Button(control_frame, text="Play", command=self.start_threading, font=common.UTILITY_BUTTON_STYLE)
+        self.play_button.grid(column=1, row=0, padx=(common.UTILITY_BUTTON_GAP,0))
+        stop_button = tk.Button(control_frame, text="Stop", command=self.stop_threading, font=common.UTILITY_BUTTON_STYLE)
+        stop_button.grid(column=2, row=0, padx=(common.UTILITY_BUTTON_GAP,0))
         self.bpm_slider = tk.Scale(control_frame, from_=60, to=240, orient=tk.HORIZONTAL, label="BPM", length=200, command=(self.set_bpm))
         self.bpm_slider.set(self.bpm)
         self.bpm_slider.grid(column=3, row=0)
         self.is_playing = False
         self.is_paused = True
 
-        row_number += 1
-        picture_frame = tk.Frame(self,width=200, height=100)
-        picture_frame.grid(column=0,row=row_number)
         row_number += 1
         self.gender_instrument = GenderInstrument(self)
         self.gender_instrument.grid(column=0,row=row_number)
@@ -95,9 +99,9 @@ class PlayBackWindow(tk.Frame):
             print(content)
             self.recorded_notes = list(content.split(','))
 
-root = tk.Tk()
-playback_window = PlayBackWindow(root)
-# playback_thread = threading.Thread(target=playback_window.playback)
-# playback_thread.start()
+# root = tk.Tk()
+# playback_window = PlayBackWindow(root)
+# # playback_thread = threading.Thread(target=playback_window.playback)
+# # playback_thread.start()
 
-root.mainloop()
+# root.mainloop()

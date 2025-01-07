@@ -1,14 +1,15 @@
 from functools import partial
 import tkinter as tk
-import time
 import pygame as pg
 
 class GenderBlade(tk.Button):
     __slot__ = ['is_pressed']
     def __init__(self, root, note, **kwargs):
-        super().__init__(root, command=self.__press_button, **kwargs)
+        super().__init__(root, command=self.__press_button, background='#f2e6be', **kwargs)
         self.is_pressed: bool = False
         self.note: int = note
+        pg.init()
+        self.sound = pg.mixer.Sound(f"sounds/note_v_0-9_-0{self.note}.mp3")
     def button_pressed(self):
         self.is_pressed = True
     def button_released(self):
@@ -28,6 +29,6 @@ class GenderBlade(tk.Button):
         func(**kwargs)
         self.__press_button()
     def play_sound(self):
-        sound = pg.mixer.Sound(f"sounds/note_v_0-9_-0{self.note}.mp3")
-        sound.play()
+        self.sound.play()
+        # print(f"Channel number {self.sound.get_num_channels()}")
         return

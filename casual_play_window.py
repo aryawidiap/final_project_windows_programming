@@ -18,8 +18,8 @@ class PlayWindow(tk.Frame):
         gender_instrument.grid(column=0,row=2)
 
 
-root = tk.Tk()
+# root = tk.Tk()
 
-play_window = PlayWindow(root)
+# play_window = PlayWindow(root)
 
-root.mainloop()
+# root.mainloop()

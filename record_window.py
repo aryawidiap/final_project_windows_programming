@@ -3,12 +3,6 @@ import threading
 from time import sleep
 import tkinter as tk
 from gender_instrument import GenderInstrument
-<<<<<<< HEAD
-# from ctypes import windll
-from tkinter.filedialog import asksaveasfile
-# windll.shcore.SetProcessDpiAwareness(1)
-import time
-=======
 from tkinter.filedialog import asksaveasfile
 from tkinter import messagebox
 import platform
@@ -21,7 +15,6 @@ if platform.system() == 'Windows':
 else:
     from common import Common
     common = Common()
->>>>>>> b2105ab0d81a14bafcebbc07fa50c193040e783c
 
 class RecordWindow(tk.Frame):
     def __init__(self, root):
@@ -84,18 +77,6 @@ class RecordWindow(tk.Frame):
         
         # Binding the keys of keyboard
         top_root = self.winfo_toplevel()
-<<<<<<< HEAD
-        # top_root.bind(f'<KeyRelease>', self.__release_button)
-        top_root.bind(f'<space>', self.__press_button, add=True)
-        top_root.bind(f'<BackSpace>', self.__press_button, add=True)
-        note_ranges = [1,2,3,4,5,6,7,8,9,0]
-        for number in note_ranges:
-            # has not configured if pressed in screen
-            top_root.bind(f'{number}', self.__press_button, add=True)
-        save_button = tk.Button(self, text='Save recording', command=self.__save_notes)
-        save_button.grid(column=0,row=5)
-    def __press_button(self, key_press_event):
-=======
         top_root.bind(f'<space>', self.__press_key,)
         top_root.bind(f'<BackSpace>', self.__press_key,)
         
@@ -103,7 +84,6 @@ class RecordWindow(tk.Frame):
             top_root.bind(f'{number}', self.__press_key,)
         
     def __press_key(self, key_press_event):
->>>>>>> b2105ab0d81a14bafcebbc07fa50c193040e783c
         pressed_key: str = key_press_event.char
         if pressed_key.isnumeric():
             pressed_key = int(pressed_key)
@@ -186,6 +166,6 @@ class RecordWindow(tk.Frame):
         print(key)
         if key != 'rest':
             self.gender_instrument.simulate_button_press(int(key))
-# root = tk.Tk()
-# play_window = RecordWindow(root)
-# root.mainloop()
+root = tk.Tk()
+play_window = RecordWindow(root)
+root.mainloop()

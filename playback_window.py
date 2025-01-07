@@ -2,14 +2,6 @@ import tkinter as tk
 import pygame as pg
 from gender_instrument import GenderInstrument
 from time import sleep
-<<<<<<< HEAD
-class GenderInstrument():
-    def __init__(self):
-        # self.note_ranges = [7,8,9,-1,-1,8,7,-1,-1,-1,8,8,7,8,9,-1,-1,-1]
-        self.note_ranges = [7,8,9,7,8,9,7,8,9,7,8,9,0,9,8,-1,9,-1,8,-1,-1,9,-1,0,0,6,7,8,7,8,-1,-1,-1]
-        # self.note_ranges = [7, 8, 9, -1, -1, -1, -1, 8, 7, -1, -1, -1, -1, -1, -1, -1, 8, 8, 7, 8, 9, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 8, 8, 7, 8, 9, -1, -1]
-        
-=======
 import threading
 from tkinter.filedialog import askopenfile, askopenfiles, asksaveasfile
 import platform
@@ -29,7 +21,6 @@ class PlayBackWindow(tk.Frame):
         self.bpm = 120
         self.interval = float(60 / float(self.bpm))
 
->>>>>>> b2105ab0d81a14bafcebbc07fa50c193040e783c
         pg.init()
         pg.mixer.set_num_channels(256)
         # // tempo about 176 bpm
@@ -108,9 +99,9 @@ class PlayBackWindow(tk.Frame):
             print(content)
             self.recorded_notes = list(content.split(','))
 
-# root = tk.Tk()
-# playback_window = PlayBackWindow(root)
+root = tk.Tk()
+playback_window = PlayBackWindow(root)
 # # playback_thread = threading.Thread(target=playback_window.playback)
 # # playback_thread.start()
 
-# root.mainloop()
+root.mainloop()

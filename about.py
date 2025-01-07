@@ -28,7 +28,7 @@ def launch_app(file_name, current_window):
             raise FileNotFoundError(f"File '{file_name}' not found.")
         
         # Launch the file
-        subprocess.Popen(["python3", file_name])
+        subprocess.Popen(["python", file_name])
         # Close the current window
         current_window.destroy()
     except Exception as e:

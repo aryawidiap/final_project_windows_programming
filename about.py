@@ -3,6 +3,7 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk  # For handling the image
+from menubar import *
 
 def launch_casual_play(current_window):
     """Launch the casual play window and close the current window."""
@@ -37,34 +38,8 @@ def launch_app(file_name, current_window):
 def create_about_window():
     """Create the About window."""
     about_window = tk.Tk()
-    about_window.title("About")
+    about_window.title("Virtual Gender | About")
     about_window.geometry("600x500")
-
-    # Add a menubar
-    menubar = tk.Menu(about_window)
-
-    # Create the "Main Menu" menu
-    main_menu = tk.Menu(menubar, tearoff=0)
-    main_menu.add_command(label="Run", command=lambda: launch_main_menu(about_window))
-    menubar.add_cascade(label="Main Menu", menu=main_menu)
-
-    # Create the "Free Play" menu
-    free_play_menu = tk.Menu(menubar, tearoff=0)
-    free_play_menu.add_command(label="Run", command=lambda: launch_casual_play(about_window))
-    menubar.add_cascade(label="Free Play", menu=free_play_menu)
-
-    # Create the "Record" menu
-    record_menu = tk.Menu(menubar, tearoff=0)
-    record_menu.add_command(label="Run", command=lambda: launch_record(about_window))
-    menubar.add_cascade(label="Record", menu=record_menu)
-
-    # Create the "Playback" menu
-    playback_menu = tk.Menu(menubar, tearoff=0)
-    playback_menu.add_command(label="Run", command=lambda: launch_playback(about_window))
-    menubar.add_cascade(label="Playback", menu=playback_menu)
-
-    # Configure the menubar
-    about_window.config(menu=menubar)
 
     # Add a title label
     title_label = tk.Label(about_window, text="About Gender Virtual", font=("Arial", 20, "bold"), pady=10)
@@ -98,6 +73,9 @@ def create_about_window():
     )
     description_label = tk.Label(about_window, text=description, wraplength=550, justify="left", font=("Arial", 12))
     description_label.pack(pady=10)
+
+    create_menu(about_window, "About")
+    about_window.resizable(False, False)
 
     about_window.mainloop()
 

@@ -33,5 +33,6 @@ root = tk.Tk()
 create_menu(root, "Free Play")
 
 play_window = CasualPlayWindow(root)
-
+root.title("Virtual Gender | Casual Play")
+root.resizable(False, False)
 root.mainloop()

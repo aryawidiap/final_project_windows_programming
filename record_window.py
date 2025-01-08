@@ -172,4 +172,6 @@ root = tk.Tk()
 create_menu(root, "Record")
 
 record_window = RecordWindow(root)
+root.title("Virtual Gender | Record")
+root.resizable(False, False)
 root.mainloop()

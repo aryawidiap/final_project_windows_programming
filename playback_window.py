@@ -103,7 +103,6 @@ class PlayBackWindow(tk.Frame):
 root = tk.Tk()
 playback_window = PlayBackWindow(root)
 create_menu(root, "Playback")
-# # playback_thread = threading.Thread(target=playback_window.playback)
-# # playback_thread.start()
-
+root.title("Virtual Gender | Playback")
+root.resizable(False, False)
 root.mainloop()

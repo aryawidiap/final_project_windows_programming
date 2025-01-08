@@ -22,6 +22,8 @@ def create_main_window():
     tk.Button(root, text="Playback", command=lambda: launch_playback(root), **button_style).pack(pady=10)
     tk.Button(root, text="About", command=lambda: launch_about(root), **button_style).pack(pady=10)
 
+    root.title("Virtual Gender | Main")
+    root.resizable(False, False)
     root.mainloop()
 
 if __name__ == "__main__":

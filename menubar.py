@@ -19,6 +19,10 @@ def launch_about(current_window):
     """Launch the about window."""
     launch_app("about.py", current_window)
 
+def launch_main_menu(current_window):
+    """Launch the Main Menu window and close the current window."""
+    launch_app("main.py", current_window)
+
 def launch_app(file_name, current_window):
     """Launch a Python file in a new process."""
     try:
@@ -37,29 +41,25 @@ def create_menu(root, current_menu):
     """Create the main menu window."""
     menubar = tk.Menu(root)
 
+    if current_menu != "Main":
+        # Create the "Main Menu" menu
+        menubar.add_command(label="Main Menu", command=lambda: launch_main_menu(root))
+
     if current_menu != "Free Play":
         # Create the "Free Play" menu
-        free_play_menu = tk.Menu(menubar, tearoff=0)
-        free_play_menu.add_command(label="Run", command=lambda: launch_casual_play(root))
-        menubar.add_cascade(label="Free Play", menu=free_play_menu)
+        menubar.add_command(label="Free Play", command=lambda: launch_casual_play(root))
 
     if current_menu != "Record":
         # Create the "Record" menu
-        record_menu = tk.Menu(menubar, tearoff=0)
-        record_menu.add_command(label="Run", command=lambda: launch_record(root))
-        menubar.add_cascade(label="Record", menu=record_menu)
+        menubar.add_command(label="Record", command=lambda: launch_record(root))
 
     if current_menu != "Playback":
         # Create the "Playback" menu
-        playback_menu = tk.Menu(menubar, tearoff=0)
-        playback_menu.add_command(label="Run", command=lambda: launch_playback(root))
-        menubar.add_cascade(label="Playback", menu=playback_menu)
+        menubar.add_command(label="Playback", command=lambda: launch_playback(root))
 
     if current_menu != "About":
         # Create the "About" menu
-        about_menu = tk.Menu(menubar, tearoff=0)
-        about_menu.add_command(label="Run", command=lambda: launch_about(root))
-        menubar.add_cascade(label="About", menu=about_menu)
+        menubar.add_command(label="About", command=lambda: launch_about(root))
 
     # Configure the menubar
     root.config(menu=menubar)
